@@ -1,0 +1,30 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    .gitconfig                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: zaz <zaz@staff.42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2013/06/20 15:51:57 by zaz               #+#    #+#              #
+#    Updated: 2015/04/06 17:21:12 by ypringau         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = vim
+[user]
+	name = Yann Pringault
+	email = ypringau@student.42.fr
+[push]
+	default = simple
+[pull]
+	rebase = true
+[alias]
+	st = status
+	co = checkout
+	undo = reset --soft HEAD^
+[color]
+	ui = auto
+	branch = auto
+	status = auto

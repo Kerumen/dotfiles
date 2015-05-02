@@ -1,0 +1,37 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    .gitignore_global                                  :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: zaz <zaz@staff.42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2013/06/20 15:51:46 by zaz               #+#    #+#              #
+#    Updated: 2015/05/02 10:50:40 by ypringau         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# Compiled source files
+*.a
+*.o
+*.so
+a.out
+*.class
+*.com
+*.pyc
+
+# Editor backups
+\#*#
+*~
+.*.swp
+
+# OS-generated crap
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# IDE
+.idea
