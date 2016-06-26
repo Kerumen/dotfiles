@@ -1,63 +1,23 @@
-" **************************************************************************** "
-"                                                                              "
-"                                                         :::      ::::::::    "
-"    .myvimrc                                           :+:      :+:    :+:    "
-"                                                     +:+ +:+         +:+      "
-"    By: zaz <zaz@staff.42.fr>                      +#+  +:+       +#+         "
-"                                                 +#+#+#+#+#+   +#+            "
-"    Created: 2013/06/15 12:36:36 by zaz               #+#    #+#              "
-"    Updated: 2015/05/02 10:39:05 by ypringau         ###   ########.fr        "
-"                                                                              "
-" **************************************************************************** "
+" Be iMproved
+set nocompatible
 
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-match ExtraWhitespace /\s\+$\| \+\ze\t/
-match ExtraWhitespace /[^\t]\zs\t\+/
-match ExtraWhitespace /^\t*\zs \+/
-match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd InsertLeave * redraw!
-autocmd BufWinEnter * match ExtraWhitespace /^\s* \s*\|\s\+$/
-
-set cc=80
-set mouse=a
-
-let g:auto_save = 1
-
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Disable filetype
+filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'SirVer/ultisnips'
+" Color schemes
+Plugin 'flazz/vim-colorschemes'
 
-Plugin 'honza/vim-snippets'
+call vundle#end()
 
-Plugin 'Raimondi/delimitMate'
-
-Plugin 'shyuan/vim-color-schemes'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
-set history=700
+set history=500
 
 " Enable filetype plugins
 filetype plugin on
@@ -74,24 +34,35 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :W sudo saves the file 
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
-"Show current line
-set cursorline
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en' 
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 " Turn on the WiLd menu
 set wildmenu
-"set wildmode=list:longest
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+else
+    set wildignore+=.git\*,.hg\*,.svn\*
+endif
 
-"Always show current position
+" Always show current position
 set ruler
+
+" Show line number
+set nu
 
 " Height of the command bar
 set cmdheight=2
@@ -106,23 +77,23 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases
+" When searching try to be smart about cases 
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch
+set incsearch 
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw
+set lazyredraw 
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch
+set showmatch 
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -131,15 +102,25 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-autocmd! GUIEnter * set vb t_vb=
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Add a bit extra margin to the left
+set foldcolumn=1
+
 " Enable syntax highlighting
 syntax enable
 
-colorscheme jellybeans
+" Colorscheme
+colorscheme Tomorrow-Night 
+
+set background=dark
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -147,18 +128,20 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
 " Use spaces instead of tabs
-"set expandtab
+set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -168,10 +151,16 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
 
-set number
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
